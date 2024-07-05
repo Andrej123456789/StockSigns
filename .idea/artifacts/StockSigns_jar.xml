@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="StockSigns:jar">
+    <output-path>$USER_HOME$/Documents/Minecraft/Paper-Server/plugins</output-path>
+    <root id="archive" name="StockSigns.jar">
+      <element id="module-output" name="StockSigns" />
+    </root>
+  </artifact>
+</component>

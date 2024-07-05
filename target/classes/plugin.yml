@@ -1,0 +1,4 @@
+name: StockSigns
+version: '1.0-SNAPSHOT'
+main: me.andrej123456789.stocksigns.StockSigns
+api-version: '1.20'

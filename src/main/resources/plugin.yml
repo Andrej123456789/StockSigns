@@ -1,0 +1,4 @@
+name: StockSigns
+version: '${project.version}'
+main: me.andrej123456789.stocksigns.StockSigns
+api-version: '1.20'
