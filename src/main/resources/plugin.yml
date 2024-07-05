@@ -2,3 +2,6 @@ name: StockSigns
 version: '${project.version}'
 main: me.andrej123456789.stocksigns.StockSigns
 api-version: '1.20'
+
+libraries:
+  - com.moandjiezana.toml:toml4j:0.7.2

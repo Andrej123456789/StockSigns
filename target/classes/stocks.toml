@@ -1,0 +1,9 @@
+# List of all companies listed on stock market
+
+[localhost]
+
+[localhost.villager]
+name = "villager"
+number_of_stocks = 10.0
+owner_stocks = 5.0
+price_per_stock = 1.0

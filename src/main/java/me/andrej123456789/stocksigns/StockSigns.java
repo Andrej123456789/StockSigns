@@ -1,8 +1,10 @@
 package me.andrej123456789.stocksigns;
 
+import java.io.File;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.andrej123456789.stocksigns.events.SignUpdated;
+import me.andrej123456789.stocksigns.events.SignEvent;
 
 public final class StockSigns extends JavaPlugin {
 
@@ -10,8 +12,16 @@ public final class StockSigns extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
 
-        getServer().getPluginManager().registerEvents(new SignUpdated(), this);
+        // Check and copy "scrape_copper.toml"
+        File stocksFile = new File(getDataFolder(), "stocks.toml");
+        if (!stocksFile.exists()) {
+            saveResource("stocks.toml", false);
+        }
 
+        // Register event for signs
+        getServer().getPluginManager().registerEvents(new SignEvent(), this);
+
+        // Send message that initialization is done
         getServer().getConsoleSender().sendMessage("[StockSigns] Initialization of StockSigns is done!");
     }
 
