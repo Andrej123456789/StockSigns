@@ -5,3 +5,10 @@ api-version: '1.20'
 
 libraries:
   - com.moandjiezana.toml:toml4j:0.7.2
+
+commands:
+  create_exchange:
+    description: Create stock exchange
+    usage: '/create_exchange <name> <code> <max_companies>'
+    permission: stocksigns.create_exchange
+    permission-message: '&cYou do not have permission to use this command'
