@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.util.Map;
 import java.io.IOException;
+import java.util.Map;
 
 import com.moandjiezana.toml.Toml;
+import com.moandjiezana.toml.TomlWriter;
 
 /**
  * Class handling .TOML configs
@@ -27,14 +28,25 @@ public class Config {
     }
 
     /**
+     * Reload file
+     */
+    public void reload() {
+        toml = new Toml().read(file);
+    }
+
+    /**
      * Get a string from .TOML file
      * @param key
-     * @return
+     * @return `String` type
      */
     String geString(String key) {
         return toml.getString(key);
     }
 
+    /**
+     * Get all table names
+     * @return array list containing table names
+     */
     public ArrayList<String> getTables() {
         ArrayList<String> result = new ArrayList<String>();
         Map<String, Object> map = toml.toMap();
@@ -52,6 +64,36 @@ public class Config {
         return result;
     }
 
+    /**
+     * Write table at the end of a file
+     * @param tomlData class containing data
+     * @param new_map_name value to replace variable name representing TOML table
+     * @return empty string if ok, or exception
+     */
+    public String writeTable(Object tomlData, String new_map_name) {
+        TomlWriter tomlWriter = new TomlWriter();
+        String tomlString = tomlWriter.write(tomlData);
+
+        tomlString = tomlString.replace("map", new_map_name);
+        tomlString = "\n" + tomlString;
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+            writer.write(tomlString);
+
+            writer.close();
+        } catch (IOException e) {
+            return e.toString();
+        }
+        
+        return "";
+    }
+
+    /**
+     * Write new empty table at the end of a file
+     * @param name name of new table
+     * @return empty string if ok, or exception
+     */
     public String writeEmptyTable(String name) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));

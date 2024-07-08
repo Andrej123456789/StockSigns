@@ -9,15 +9,31 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+/**
+ * Class implementing creation of stock exchange
+ */
 public class CreateExchange {
+
+    /**
+     * Entry function
+     * @param sender player or console running this command
+     * @param name name of future stock exchanges
+     * @param code code of future stock exchange 
+     * @param max_companies number of companies allowed on future stock exchange
+     */
     public CreateExchange(@NotNull CommandSender sender, String name, String code, Integer max_companies) {
         Config stocks_toml = getStocksToml();
+        stocks_toml.reload();
 
         ArrayList<String> current_stock_exchanges = stocks_toml.getTables();
 
-        if (current_stock_exchanges.contains(name)) {
-            sender.sendMessage(ChatColor.YELLOW + "Stock exchange '" + name + "' already exists!");
+        /* Perform checks */
+
+        if (current_stock_exchanges.contains(code)) {
+            sender.sendMessage(ChatColor.YELLOW + "Stock exchange with code '" + code + "' already exists!");
             return;            
         }
 
@@ -31,7 +47,25 @@ public class CreateExchange {
             return;
         }
 
-        String result = stocks_toml.writeEmptyTable(name);
+        /* Create class containing data and send it to toml writer function */
+
+        /** Class containing data to be written to .TOML file
+
+         * @note Underscore was initially planned to be used in class names.
+         * However, it would not look nice for variables to have underscore
+         * in config file.
+         */
+        class StockExchange {
+            Map<String, Object> map = new HashMap<String, Object>();
+        };
+
+        StockExchange stockExchange = new StockExchange();
+
+        stockExchange.map.put("name", name);
+        stockExchange.map.put("code", code);
+        stockExchange.map.put("max_companies", max_companies);
+
+        String result = stocks_toml.writeTable(stockExchange, code.toLowerCase());
 
         if (result == "") {
             sender.sendMessage(ChatColor.GREEN + "Stock exchange successfully created.");
