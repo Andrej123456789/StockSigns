@@ -1,9 +1,11 @@
 package me.andrej123456789.stocksigns.events;
 
 import org.bukkit.block.Block;
-import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.entity.Player;
+import org.bukkit.block.Sign;
+
 import org.bukkit.event.block.SignChangeEvent;
 
 import me.andrej123456789.stocksigns.stock_market.CreateCompany;
@@ -17,6 +19,9 @@ public class SignEvent implements Listener {
     @EventHandler
     public void onSignEvent(SignChangeEvent e) {
 
+        // Get player
+        Player player = e.getPlayer();
+
         // Get block type
         Block block = e.getBlock();
 
@@ -27,6 +32,6 @@ public class SignEvent implements Listener {
         String[] lines = sign.getLines();
 
         // Create company from sign
-        new CreateCompany(lines);
+        new CreateCompany(player, lines);
     }
 }

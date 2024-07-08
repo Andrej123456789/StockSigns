@@ -1,6 +1,9 @@
 package me.andrej123456789.stocksigns.stock_market;
 
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.andrej123456789.stocksigns.StockSigns;
@@ -15,10 +18,13 @@ public class CreateCompany {
     /**
      * Create a company
      * @param lines all lines on the sign
+     * 
+     * Line 0 - c:name
+     * Line 1 - company code, stock exchange code
+     * Line 2 - max_stocks, owner_stocks
+     * Line 3 - stock_price
      */
-    public CreateCompany(String[] lines) {
-        plugin.getServer().getConsoleSender().sendMessage(lines);
-
+    public CreateCompany(Player player, String[] lines) {
         String company_name = "";
 
         // Check if player wants to create a company
@@ -28,33 +34,81 @@ public class CreateCompany {
             return;
         }
 
-        String stock_exchange = "";
+        String company_code = "";
+        String stock_exchange_code = "";
 
-        Integer number_of_stocks = 0;
+        Integer max_stocks = 0;
         Integer owner_stocks = 0;
-        Integer one_stock_price = 0;
+        Integer stock_price = 0;
 
-        stock_exchange = lines[1];
-
-        // Split line two into maximum number of stocks and number of owners' stock
-        String[] parts = lines[2].split(",", 2);
-
+        // Parse line 1
         try {
-            number_of_stocks = Integer.parseInt(parts[0]);
+            company_code = lines[1].split(",", 2)[0];
+            stock_exchange_code = lines[1].split(",", 2)[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            player.sendMessage(ChatColor.RED + "There was error splitting second line.\n" + 
+                                "Please check if comma is included!");
+
+            return;
+        }
+
+        // Parse line 2
+        try {
+            max_stocks = Integer.parseInt(lines[2].split(",", 2)[0]);
         } catch (NumberFormatException e) {
-            /* print error */
+            player.sendMessage(ChatColor.RED + "There was error converting string into number.\n" + 
+                                "Please check if value is a number!");
+
+            return;
         }
 
         try {
-            owner_stocks = Integer.parseInt(parts[1]);
+            owner_stocks = Integer.parseInt(lines[2].split(",", 2)[1]);
         } catch (NumberFormatException e) {
-            /* print error */
+            player.sendMessage(ChatColor.RED + "There was error converting string into number.\n" + 
+                                "Please check if value is a number!");
+
+            return;
         }
 
+        // Parse line 3
         try {
-            one_stock_price = Integer.parseInt(lines[3]);
+            stock_price = Integer.parseInt(lines[3]);
         } catch (NumberFormatException e) {
-            /* print error */
+            player.sendMessage(ChatColor.RED + "There was error converting string into number.\n" + 
+                                "Please check if value is a number!");
+
+            return;
         }
+
+        if (company_code.length() != 4) {
+            player.sendMessage(ChatColor.YELLOW + "Company code is less or more than 4 characters!");
+            return;
+        }
+    
+        if (stock_exchange_code.length() != 4) {
+            player.sendMessage(ChatColor.YELLOW + "Stock exchange code is less or more than 4 characters!");
+            return;
+        }
+
+        if (max_stocks < 1) {
+            player.sendMessage(ChatColor.YELLOW + "Number of stocks should be greater than zero!");
+            return;
+        }
+
+        if (max_stocks < 1) {
+            player.sendMessage(ChatColor.YELLOW + "Number of stocks should be greater than zero!");
+            return;
+        }
+
+        if (stock_price < 1) {
+            player.sendMessage(ChatColor.YELLOW + "Stock price should be greater than zero!");
+            return;
+        }
+
+        player.sendMessage(company_name);
+        player.sendMessage(company_code + " | " + stock_exchange_code);
+        player.sendMessage(max_stocks.toString() + " | " + owner_stocks.toString());
+        player.sendMessage(stock_price.toString());
     }
 }
