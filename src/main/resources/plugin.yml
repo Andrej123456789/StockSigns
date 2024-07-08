@@ -12,3 +12,9 @@ commands:
     usage: '/create_exchange <name> <code> <max_companies>'
     permission: stocksigns.create_exchange
     permission-message: '&cYou do not have permission to use this command'
+
+  list_exchanges:
+    description: List all stock exchanges
+    usage: '/list_exchanges'
+    permission: stocksigns.list_exchanges
+    permission-message: '&cYou do not have permission to use this command'

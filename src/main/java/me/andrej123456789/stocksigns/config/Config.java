@@ -39,7 +39,7 @@ public class Config {
      * @param key
      * @return `String` type
      */
-    String geString(String key) {
+    public String geString(String key) {
         return toml.getString(key);
     }
 

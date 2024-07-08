@@ -2,6 +2,7 @@ package me.andrej123456789.stocksigns.commands;
 
 import me.andrej123456789.stocksigns.stock_market.CreateExchange;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -34,7 +35,8 @@ public class CreateExchangeCommand implements CommandExecutor, TabExecutor {
         try {
             max_companies = Integer.parseInt(args[2]);
         } catch (NumberFormatException e) {
-            // TODO: handle exception
+            sender.sendMessage(ChatColor.RED + "There was error converting 'max_companies' into number.\n" + 
+                                "Please check if value is a number!");
         }
 
         new CreateExchange(sender, name, code, max_companies);

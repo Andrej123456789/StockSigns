@@ -49,11 +49,8 @@ public class CreateExchange {
 
         /* Create class containing data and send it to toml writer function */
 
-        /** Class containing data to be written to .TOML file
-
-         * @note Underscore was initially planned to be used in class names.
-         * However, it would not look nice for variables to have underscore
-         * in config file.
+        /** 
+         * Class containing data to be written to .TOML file
          */
         class StockExchange {
             Map<String, Object> map = new HashMap<String, Object>();
@@ -62,9 +59,10 @@ public class CreateExchange {
         StockExchange stockExchange = new StockExchange();
 
         stockExchange.map.put("name", name);
-        stockExchange.map.put("code", code);
+        stockExchange.map.put("code", code.toUpperCase()); // Code will be upper case
         stockExchange.map.put("max_companies", max_companies);
 
+        // Table name will be lowercase
         String result = stocks_toml.writeTable(stockExchange, code.toLowerCase());
 
         if (result == "") {

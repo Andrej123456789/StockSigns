@@ -2,6 +2,7 @@ package me.andrej123456789.stocksigns;
 
 import me.andrej123456789.stocksigns.config.Config;
 import me.andrej123456789.stocksigns.commands.CreateExchangeCommand;
+import me.andrej123456789.stocksigns.commands.ListExchangesCommand;
 import me.andrej123456789.stocksigns.events.SignEvent;
 
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,6 +30,7 @@ public final class StockSigns extends JavaPlugin {
 
         // Register commands
         getCommand("create_exchange").setExecutor(new CreateExchangeCommand());
+        getCommand("list_exchanges").setExecutor(new ListExchangesCommand());
 
         // Send message that initialization is done
         getServer().getConsoleSender().sendMessage("[StockSigns] Initialization of StockSigns is done!");
