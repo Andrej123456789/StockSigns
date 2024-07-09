@@ -1,9 +1,9 @@
 package me.andrej123456789.stocksigns;
 
-import me.andrej123456789.stocksigns.config.Config;
+import me.andrej123456789.stocksigns.events.SignEvent;
 import me.andrej123456789.stocksigns.commands.CreateExchangeCommand;
 import me.andrej123456789.stocksigns.commands.ListExchangesCommand;
-import me.andrej123456789.stocksigns.events.SignEvent;
+import me.andrej123456789.stocksigns.config.Config;
 
 import org.bukkit.plugin.java.JavaPlugin;
 

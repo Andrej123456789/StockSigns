@@ -1,8 +1,8 @@
 package me.andrej123456789.stocksigns.stock_market;
 
 import me.andrej123456789.stocksigns.StockSigns;
-import me.andrej123456789.stocksigns.config.Config;
 import static me.andrej123456789.stocksigns.StockSigns.getStocksToml;
+import me.andrej123456789.stocksigns.config.Config;
 
 import org.bukkit.ChatColor;
 
@@ -154,6 +154,10 @@ public class CreateCompany {
         conversation.begin();
     }
 
+    /**
+     * Class handling stuff after confirmation input.
+     * Write data to .toml file
+     */
     private class AfterConversation implements ConversationAbandonedListener {
         Player player = null;
 
@@ -190,14 +194,19 @@ public class CreateCompany {
             String result = stocks_toml.writeTable(company, "map", stock_exchange_code.toLowerCase() + "." + company_code.toLowerCase());
             String result2 = stocks_toml.writeTable(stocks, "map", stock_exchange_code.toLowerCase() + "." + company_code.toLowerCase() + ".stocks");
 
-            if (result == "") {
-                player.sendMessage(ChatColor.GREEN + "Stock exchange successfully created.");
-            } else {
+            if (result == "" && result2 == "") {
+                player.sendMessage(ChatColor.GREEN + "Company successfully created.");
+            } else if (result != "") {
                 player.sendMessage(ChatColor.RED + result);
+            } else if (result2 != "") {
+                player.sendMessage(ChatColor.RED + result2);
             }
         }
     }
 
+    /**
+     * Ask question and send to user that input has been received if received.
+     */
     private class QuestionPrompt extends StringPrompt {
         @Override
         public String getPromptText(ConversationContext context) {

@@ -1,10 +1,10 @@
 package me.andrej123456789.stocksigns.config;
 
-import java.util.ArrayList;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 import com.moandjiezana.toml.Toml;
