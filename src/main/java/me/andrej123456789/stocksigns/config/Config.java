@@ -70,11 +70,11 @@ public class Config {
      * @param new_map_name value to replace variable name representing TOML table
      * @return empty string if ok, or exception
      */
-    public String writeTable(Object tomlData, String new_map_name) {
+    public String writeTable(Object tomlData, String oldName, String newName) {
         TomlWriter tomlWriter = new TomlWriter();
         String tomlString = tomlWriter.write(tomlData);
 
-        tomlString = tomlString.replace("map", new_map_name);
+        tomlString = tomlString.replace(oldName, newName);
         tomlString = "\n" + tomlString;
 
         try {

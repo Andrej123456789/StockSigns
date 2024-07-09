@@ -9,5 +9,7 @@ max_companies = 10.0
 name = "Villager Corporation"
 code = "VCRP"
 number_of_stocks = 10.0
-owner_stocks = 5.0
 price_per_stock = 1.0
+
+[good.vcrp.stocks]
+Villager = 5.0

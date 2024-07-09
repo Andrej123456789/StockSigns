@@ -59,11 +59,12 @@ public class CreateExchange {
         StockExchange stockExchange = new StockExchange();
 
         stockExchange.map.put("name", name);
-        stockExchange.map.put("code", code.toUpperCase()); // Code will be upper case
+        stockExchange.map.put("code", code.toUpperCase()); // Code will be upper case as value in config
         stockExchange.map.put("max_companies", max_companies);
 
         // Table name will be lowercase
-        String result = stocks_toml.writeTable(stockExchange, code.toLowerCase());
+
+        String result = stocks_toml.writeTable(stockExchange, "map", code.toLowerCase());
 
         if (result == "") {
             sender.sendMessage(ChatColor.GREEN + "Stock exchange successfully created.");
